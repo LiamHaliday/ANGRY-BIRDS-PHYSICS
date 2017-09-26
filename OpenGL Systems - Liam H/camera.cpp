@@ -5,7 +5,7 @@
 // Created: Liam Haliday
 // Description: draws the object from an angle
 /****************************************************/
-void camera::draw(GLuint program, GLfloat currentThime, bool spin, float one, float two, float three)
+void camera::draw(GLuint program, GLfloat currentThime, float angle, float one, float two, float three)
 {
 
 
@@ -22,7 +22,7 @@ void camera::draw(GLuint program, GLfloat currentThime, bool spin, float one, fl
 
 	glm::vec3 newPositonObj = glm::vec3(one, two, -three);
 	glm::mat4 translation;
-	translation = glm::translate(glm::mat4(), newPositonObj);
+	translation = glm::translate(glm::mat4(), glm::vec3(0.0f, 0.0f, 1.0f));
 
 	GLfloat radius = 4.0f;
 	GLfloat camX = sin(currentTime) * radius;
@@ -33,7 +33,7 @@ void camera::draw(GLuint program, GLfloat currentThime, bool spin, float one, fl
 	world = glm::translate(glm::mat4(), newPositon);
 
 	view = glm::lookAt(cameraPos, cameraFront, cameraUp);
-	model = glm::translate(glm::mat4(), newPositonObj) * glm::rotate(glm::mat4(), -0.0f / 100, glm::vec3(0.0f, 1.0f, 0.0f)); // TRANS WAS HERE 
+	model = glm::translate(glm::mat4(), newPositonObj) * glm::rotate(glm::mat4(), angle, glm::vec3(0.0f, 1.0f, 0.0f)); // TRANS WAS HERE 
 	projection = glm::perspective(45.0f, (GLfloat)WIDTH / (GLfloat)HEIGHT, 0.1f, 10.0f);
 
 
@@ -61,6 +61,8 @@ void camera::draw(GLuint program, GLfloat currentThime, bool spin, float one, fl
 // Created: Liam Haliday
 // Description: draws the object strate down (for the main menu)
 /****************************************************/
+
+/*
 void camera::drawflat(GLuint program, GLfloat currentThime, bool spin, float one, float two, float three)
 {
 
@@ -111,6 +113,7 @@ void camera::drawflat(GLuint program, GLfloat currentThime, bool spin, float one
 
 
 };
+*/
 
 void camera::movingCam(glm::vec3 pasloc, glm::vec3 paslook)
 {

@@ -125,23 +125,17 @@ void object::createObj(GLfloat *vert, int vertSize, GLuint *ind, int indSize)
 // Created: Liam Haliday
 // Description: renders the object
 /****************************************************/
-void object::render(float one, float two, float three, bool moving, camera tryingCamera)
+void object::render(float one, float two, float three, float angle, camera tryingCamera)
 {
 	//leak test
 
 	//leak test
 	glUseProgram(program);
 
-	if (moving)
-	{
+
 //main-cam-----------------------------------------------------------------------------------------------------------------
-		tryingCamera.draw(program, 0.0f, false, one, two, three);
+		tryingCamera.draw(program, 0.0f, angle, one, two, three);
 //main-cam-----------------------------------------------------------------------------------------------------------------
-	}
-	else
-	{
-		tryingCamera.drawflat(program, 0.0f, false, one, two, three);
-	}
 
 
 	glBindTexture(GL_TEXTURE_2D, this->texture);

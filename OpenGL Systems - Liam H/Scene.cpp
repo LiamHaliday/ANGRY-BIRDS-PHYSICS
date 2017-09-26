@@ -141,14 +141,14 @@ void Scene::render()
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 
-	starFloor[0].object.render(0.0f, -0.03f, starScrollPoint[0], true, mainCam);
-	starFloor[1].object.render(0.0f, -0.03f, starScrollPoint[1], true, mainCam);
+	starFloor[0].object.render(0.0f, -0.03f, starScrollPoint[0], 0.0f, mainCam);
+	starFloor[1].object.render(0.0f, -0.03f, starScrollPoint[1], 0.0f, mainCam);
 
-	starFloor[4].object.render(0.0f, -0.01f, starScrollPointBack2[0], true, mainCam);
-	starFloor[5].object.render(0.0f, -0.01f, starScrollPointBack2[1], true, mainCam);
+	starFloor[4].object.render(0.0f, -0.01f, starScrollPointBack2[0], 0.0f, mainCam);
+	starFloor[5].object.render(0.0f, -0.01f, starScrollPointBack2[1], 0.0f, mainCam);
 
-	starFloor[2].object.render(0.0f, -0.00f, starScrollPointBack[0], true, mainCam);
-	starFloor[3].object.render(0.0f, -0.00f, starScrollPointBack[1], true, mainCam);
+	starFloor[2].object.render(0.0f, -0.00f, starScrollPointBack[0], 0.0f, mainCam);
+	starFloor[3].object.render(0.0f, -0.00f, starScrollPointBack[1], 0.0f, mainCam);
 
 
 	//-----------------------------BOX2D-----------------------------BOX2D-----------------------------BOX2D
@@ -164,12 +164,12 @@ void Scene::render()
 
 //	printf("%4.2f %4.2f %4.2f\n", position.x, position.y, angle);
 	std::cout << "playerX: " << position.x << ", playerY: " << position.y << ", angle: " << (angle * 180) / 3.14 << std::endl;
-	player.object.render(position.x, player.zCoord, position.y, true, mainCam);
+	player.object.render(position.x, player.zCoord, position.y, angle, mainCam);
 
 	position = groundBody->GetPosition();
 	angle = groundBody->GetAngle();
 
-	Ground.object.render(position.x, 0.001f, position.y, true, mainCam);
+	Ground.object.render(position.x, 0.001f, position.y, angle, mainCam);
 
 	for (unsigned int i = 0; i < pinkEnemys.size(); i++)
 	{
@@ -177,7 +177,7 @@ void Scene::render()
 		position = box[i]->GetPosition();
 		angle = box[i]->GetAngle();
 
-		pinkEnemys[i].object.render(position.x, player.zCoord, position.y, true, mainCam);
+		pinkEnemys[i].object.render(position.x, player.zCoord, position.y, angle, mainCam);
 	}
 
 //-----------------------------BOX2D-----------------------------BOX2D-----------------------------BOX2D

@@ -15,8 +15,8 @@ class camera
 {
 public:
 
-	void draw(GLuint program, GLfloat currentTime, bool spin, float one, float two, float three);
-	void drawflat(GLuint program, GLfloat currentTime, bool spin, float one, float two, float three);
+	void draw(GLuint program, GLfloat currentTime, float angle, float one, float two, float three);
+//	void drawflat(GLuint program, GLfloat currentTime, bool spin, float one, float two, float three);
 	void movingCam(glm::vec3 pasloc, glm::vec3 paslook);
 //	void 
 	

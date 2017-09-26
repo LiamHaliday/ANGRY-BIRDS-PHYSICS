@@ -34,7 +34,7 @@ public:
 	object();
 	//~object();
 
-	void render(float one, float two, float three, bool moving, camera tryingCamera);
+	void render(float one, float two, float three, float angle, camera tryingCamera);
 	void createObj(GLfloat *vert, int vertSize, GLuint *ind, int indSize); //GLfloat vertices, GLuint indices
 
 	void CreateModel();
