@@ -153,21 +153,15 @@ void Scene::render()
 
 	//-----------------------------BOX2D-----------------------------BOX2D-----------------------------BOX2D
 
-	// Now print the position and angle of the body.
-	b2Vec2 position = body->GetPosition();
-	float32 angle = body->GetAngle();
-
 	camLook.y = 0.0f;
 	camLook.x = 0.0f;
 	camLook.z = -2.5001;
 
+	// Now print the position and angle of the body.
 
-//	printf("%4.2f %4.2f %4.2f\n", position.x, position.y, angle);
-	std::cout << "playerX: " << position.x << ", playerY: " << position.y << ", angle: " << (angle * 180) / 3.14 << std::endl;
-	player.object.render(position.x, player.zCoord, position.y, angle, mainCam);
 
-	position = groundBody->GetPosition();
-	angle = groundBody->GetAngle();
+	b2Vec2 position = groundBody->GetPosition();
+	float32 angle = groundBody->GetAngle();
 
 	Ground.object.render(position.x, 0.001f, position.y, angle, mainCam);
 
@@ -180,6 +174,13 @@ void Scene::render()
 		pinkEnemys[i].object.render(position.x, player.zCoord, position.y, angle, mainCam);
 	}
 
+	position = body->GetPosition();
+	angle = body->GetAngle();
+
+
+//	printf("%4.2f %4.2f %4.2f\n", position.x, position.y, angle);
+	std::cout << "playerX: " << position.x << ", playerY: " << position.y << ", angle: " << (angle * 180) / 3.14 << std::endl;
+	player.object.render(position.x, player.zCoord, position.y, angle, mainCam);
 //-----------------------------BOX2D-----------------------------BOX2D-----------------------------BOX2D
 
 
@@ -213,8 +214,9 @@ void Scene::Box2DInit(int argc, char** argv)
 
 	body = world.CreateBody(&bodyDef);
 
-	dynamicBox.SetAsBox(0.250f, 0.250f);
-	fixtureDef.shape = &dynamicBox;
+	
+	dynamicCircle.m_radius = 0.25f;
+	fixtureDef.shape = &dynamicCircle;
 
 	// Set the box density to be non-zero, so it will be dynamic.
 	fixtureDef.density = 1.0f;
@@ -223,24 +225,20 @@ void Scene::Box2DInit(int argc, char** argv)
 	// Add the shape to the body.
 	body->CreateFixture(&fixtureDef);
 
-
-//	dynamicCircle.m_radius = 1.0;
-
-	fixtureDef.shape = &dynamicBox;
-	fixtureDef.density = 1.0f;
-	fixtureDef.friction = 0.3f;
-
-	// Add the shape to the body.
-	body->CreateFixture(&fixtureDef);
-
+	//BOXES
+	dynamicBox.SetAsBox(0.250f, 0.250f);
 	boxDef.type = b2_dynamicBody;
+
+	fixtureDefBOX.shape = &dynamicBox;
+	fixtureDefBOX.friction = 0.3f;
+	fixtureDefBOX.density = 5.0f;
 
 	for (size_t i = 0; i < 4; i++)
 	{	
 		boxDef.position.Set(3.0f, 1.0f + (i / 1.5));
 
 		box[i] = world.CreateBody(&boxDef);
-		box[i]->CreateFixture(&fixtureDef);
+		box[i]->CreateFixture(&fixtureDefBOX);
 	}
 
 	camLoc.z = camLoc.z - 2.5;
@@ -388,10 +386,10 @@ void Scene::Setsquare()
 	GLfloat vertices[] = {
 //		//position				//color				//texture coord
 		// Fill in the top face vertex data.
-		-0.125f, 0.0f, -0.125f, 1.0f, 1.0f, 1.0f, 0.0f, 1.0f,
-		-0.125f, 0.0f, 0.125f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f,
-		0.125f, 0.0f, 0.125f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f,
-		0.125f, 0.0f, -0.125f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f,
+		-0.25f, 0.0f, -0.25f, 1.0f, 1.0f, 1.0f, 0.0f, 1.0f,
+		-0.25f, 0.0f, 0.25f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f,
+		0.25f, 0.0f, 0.25f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f,
+		0.25f, 0.0f, -0.25f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f,
 
 	};
 
