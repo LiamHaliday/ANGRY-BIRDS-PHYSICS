@@ -95,6 +95,7 @@ public:
 
 	// Define another box shape for our dynamic body.
 	b2PolygonShape dynamicBox;
+	b2CircleShape dynamicCircle;
 
 	// Define the dynamic body fixture.
 	b2FixtureDef fixtureDef;

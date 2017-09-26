@@ -214,13 +214,20 @@ void Scene::Box2DInit(int argc, char** argv)
 	body = world.CreateBody(&bodyDef);
 
 	dynamicBox.SetAsBox(0.250f, 0.250f);
-
 	fixtureDef.shape = &dynamicBox;
 
 	// Set the box density to be non-zero, so it will be dynamic.
 	fixtureDef.density = 1.0f;
-
 	// Override the default friction.
+	fixtureDef.friction = 0.3f;
+	// Add the shape to the body.
+	body->CreateFixture(&fixtureDef);
+
+
+//	dynamicCircle.m_radius = 1.0;
+
+	fixtureDef.shape = &dynamicBox;
+	fixtureDef.density = 1.0f;
 	fixtureDef.friction = 0.3f;
 
 	// Add the shape to the body.
@@ -291,12 +298,12 @@ void Scene::Box2DUpdate(unsigned char *keyState, unsigned int *ArrowKeyState, un
 		break;
 	}
 
-	printf("%4.2f %4.2f %4.2f\n", position.x, position.y, angle);
+//	printf("%4.2f %4.2f %4.2f\n", position.x, position.y, angle);
 
 	position = groundBody->GetPosition();
 	angle = groundBody->GetAngle();
 	
-	printf("%4.2f %4.2f %4.2f\n", position.x, position.y, angle);
+//	printf("%4.2f %4.2f %4.2f\n", position.x, position.y, angle);
 
 	if (startPHYX)
 	{
