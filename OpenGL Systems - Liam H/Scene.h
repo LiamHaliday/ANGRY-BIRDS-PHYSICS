@@ -40,15 +40,19 @@ public:
 		HOLDING,
 		FIRE
 	};
+
 	int fireState;
 
+	// mouse XYs
 	float holdingX;
 	float holdingY;
+
+	float currentMouseX;
+	float currentMouseY;
 
 
 	void Setsquare();
 	void SetFloor();
-
 
 	FMOD::System* audioMgr;
 	FMOD::Sound* hitSound;
@@ -91,7 +95,7 @@ public:
 	b2Body* body;
 
 	b2BodyDef boxDef;
-	b2Body* box[4];
+	b2Body* box[6];
 
 	// Define another box shape for our dynamic body.
 	b2PolygonShape dynamicBox;

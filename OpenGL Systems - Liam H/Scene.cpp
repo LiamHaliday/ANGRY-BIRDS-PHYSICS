@@ -96,7 +96,7 @@ void Scene::init(int argc, char** argv)
 	}
 
 	// pink
-	for (int i = 0; i < 4; i++)
+	for (int i = 0; i < 6; i++)
 	{
 		float RandX = rand() % 800;
 		float RandY = rand() % 1000;
@@ -180,8 +180,14 @@ void Scene::render()
 
 //	printf("%4.2f %4.2f %4.2f\n", position.x, position.y, angle);
 	std::cout << "playerX: " << position.x << ", playerY: " << position.y << ", angle: " << (angle * 180) / 3.14 << std::endl;
-	player.object.render(position.x, player.zCoord, position.y, angle, mainCam);
-//-----------------------------BOX2D-----------------------------BOX2D-----------------------------BOX2D
+
+	//, holdingY - currentMouseY	
+
+
+	player.object.render(position.x , player.zCoord, position.y , angle, mainCam);
+
+
+	//-----------------------------BOX2D-----------------------------BOX2D-----------------------------BOX2D
 
 
 	glDisable(GL_BLEND);
@@ -219,7 +225,7 @@ void Scene::Box2DInit(int argc, char** argv)
 	fixtureDef.shape = &dynamicCircle;
 
 	// Set the box density to be non-zero, so it will be dynamic.
-	fixtureDef.density = 1.0f;
+	fixtureDef.density = 2.0f;
 	// Override the default friction.
 	fixtureDef.friction = 0.3f;
 	// Add the shape to the body.
@@ -231,11 +237,18 @@ void Scene::Box2DInit(int argc, char** argv)
 
 	fixtureDefBOX.shape = &dynamicBox;
 	fixtureDefBOX.friction = 0.3f;
-	fixtureDefBOX.density = 5.0f;
+	fixtureDefBOX.density = 2.0f;
 
-	for (size_t i = 0; i < 4; i++)
+	for (size_t i = 0; i < 6; i++)
 	{	
-		boxDef.position.Set(3.0f, 1.0f + (i / 1.5));
+		if (i >= 3)
+		{
+			boxDef.position.Set(3.0f, 1.25f + ((i - 3) * 0.5f));
+		}
+		else 
+		{
+			boxDef.position.Set(1.75f, 1.25f + (i * 0.5f) );
+		}
 
 		box[i] = world.CreateBody(&boxDef);
 		box[i]->CreateFixture(&fixtureDefBOX);
@@ -253,8 +266,8 @@ void Scene::Box2DInit(int argc, char** argv)
 void Scene::Box2DUpdate(unsigned char *keyState, unsigned int *ArrowKeyState, unsigned char *mouseState, GLfloat lastX, GLfloat lastY)
 {
 
-//	std::cout << "lastX: " << lastX << ",  " << "lastY: " << lastY << std::endl;
-
+	currentMouseX = lastX;
+	currentMouseY = lastY;
 
 	// Now print the position and angle of the body.
 	b2Vec2 position = body->GetPosition();
@@ -262,9 +275,6 @@ void Scene::Box2DUpdate(unsigned char *keyState, unsigned int *ArrowKeyState, un
 
 	if (mouseState[MOUSE_LEFT])
 	{
-		std::cout << "SPACE";
-
-//		body->SetTransform(	b2Vec2(position.x , position.y + 0.1f), 0	);
 
 	}
 
