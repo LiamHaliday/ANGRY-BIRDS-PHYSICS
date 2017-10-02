@@ -38,7 +38,8 @@ public:
 	{
 		STARTING,
 		HOLDING,
-		FIRE
+		FIRE,
+		MOVING
 	};
 
 	int fireState;

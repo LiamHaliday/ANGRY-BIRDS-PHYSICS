@@ -40,11 +40,11 @@ void Scene::init(int argc, char** argv)
 	starScrollPoint[0] = 0.0f;
 	starScrollPoint[1] = -10.0f;
 
-	starScrollPointBack[0] = 0.0f;
-	starScrollPointBack[1] = -10.0f;
+	starScrollPointBack[0] = 5.0f;
+	starScrollPointBack[1] = -5.0f;
 
-	starScrollPointBack2[0] = 0.0f;
-	starScrollPointBack2[1] = -10.0f;
+	starScrollPointBack2[0] = 5.0f;
+	starScrollPointBack2[1] = -5.0f;
 
 
 	FPS = new TextLabel("End score", "Assets/fonts/arial.ttf");
@@ -81,15 +81,15 @@ void Scene::init(int argc, char** argv)
 		delete floor;
 		if (starFloor.size() <= 2)
 		{
-			starFloor[starFloor.size() - 1].object.setImage("Assets/images/Back_Stars.png");	// Back Layer
+			starFloor[starFloor.size() - 1].object.setImage("Assets/images/sky backGround.png");	// Back Layer
 		}
 		else if (starFloor.size() > 2 && starFloor.size() <= 4)
 		{
-			starFloor[starFloor.size() - 1].object.setImage("Assets/images/Bg_grid.png");	// Middle Layer
+			starFloor[starFloor.size() - 1].object.setImage("Assets/images/sky backGround.png");	// Middle Layer
 		}
 		else
 		{
-			starFloor[starFloor.size() - 1].object.setImage("Assets/images/Top_Stars.png");	// Front Layer
+			starFloor[starFloor.size() - 1].object.setImage("Assets/images/Top_Stars - Copy.png");	// Front Layer
 		}
 
 		SetStarFloor();
@@ -118,7 +118,7 @@ void Scene::init(int argc, char** argv)
 	//floor.setImage("Assets/images/blueBOX.png");
 	//SetFloor();
 
-	camLoc.y = 6.0f;
+	camLoc.y = 5.59f;
 	camLoc.x = 0.0f;
 	camLoc.z = 0.0f;//-2.5f;
 
@@ -141,14 +141,15 @@ void Scene::render()
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 
-	starFloor[0].object.render(0.0f, -0.03f, starScrollPoint[0], 0.0f, mainCam);
-	starFloor[1].object.render(0.0f, -0.03f, starScrollPoint[1], 0.0f, mainCam);
+	//starFloor[0].object.render(0.0f, -0.03f, starScrollPoint[0], 0.0f, mainCam);
+	//starFloor[1].object.render(0.0f, -0.03f, starScrollPoint[1], 0.0f, mainCam);
+   
+	starFloor[2].object.render(0.0f, -0.01f, starScrollPointBack[0], 0.0f, mainCam);
+	starFloor[3].object.render(0.0f, -0.01f, starScrollPointBack[1], 0.0f, mainCam);
 
-	starFloor[4].object.render(0.0f, -0.01f, starScrollPointBack2[0], 0.0f, mainCam);
-	starFloor[5].object.render(0.0f, -0.01f, starScrollPointBack2[1], 0.0f, mainCam);
+	starFloor[4].object.render(0.0f, -0.00f, starScrollPointBack2[0], 0.0f, mainCam);
+	starFloor[5].object.render(0.0f, -0.00f, starScrollPointBack2[1], 0.0f, mainCam);
 
-	starFloor[2].object.render(0.0f, -0.00f, starScrollPointBack[0], 0.0f, mainCam);
-	starFloor[3].object.render(0.0f, -0.00f, starScrollPointBack[1], 0.0f, mainCam);
 
 
 	//-----------------------------BOX2D-----------------------------BOX2D-----------------------------BOX2D
@@ -258,6 +259,7 @@ void Scene::Box2DInit(int argc, char** argv)
 	//camLook.z = camLook.z + 2.5;
 
 	fireState = STARTING;
+
 }
 
 
@@ -273,9 +275,9 @@ void Scene::Box2DUpdate(unsigned char *keyState, unsigned int *ArrowKeyState, un
 	b2Vec2 position = body->GetPosition();
 	float32 angle = body->GetAngle();
 
-	if (mouseState[MOUSE_LEFT])
+	if (mouseState[MOUSE_RIGHT])
 	{
-
+		fireState = STARTING;
 	}
 
 	switch (fireState)
@@ -283,6 +285,7 @@ void Scene::Box2DUpdate(unsigned char *keyState, unsigned int *ArrowKeyState, un
 	case STARTING:
 
 		if (mouseState[MOUSE_LEFT]) { fireState = HOLDING;	holdingX = lastX; holdingY = lastY;}
+	
 
 		break;
 
@@ -290,21 +293,44 @@ void Scene::Box2DUpdate(unsigned char *keyState, unsigned int *ArrowKeyState, un
 
 		if (!mouseState[MOUSE_LEFT]) { fireState = FIRE; }
 
+	
+	//	body->ApplyForce(b2Vec2(0, 4), body->GetWorldCenter(), 0);
+
+
 		break;
 
 	case FIRE:
 		 
 		body->ApplyForce(b2Vec2( -((lastX - holdingX) / 2), ((lastY - holdingY) / 2)), body->GetWorldCenter(), 0);
-		//body->SetTransform(b2Vec2(position.x, position.y + 0.1f), 0);
+		startPHYX = true;	
 
-		startPHYX = true;
-		fireState = STARTING;
+		//body->SetTransform(b2Vec2(position.x, position.y + 0.1f), 0);
+	
+		fireState = MOVING;
+
+		break;
+		
+	case MOVING:
+
+		if (body->GetLinearVelocity().x >= 0.1 || body->GetLinearVelocity().x <= -0.1 && 
+			body->GetLinearVelocity().y >= 0.1 || body->GetLinearVelocity().y <= -0.1)
+		{ 
+			 std::cout << "MOVING" << std::endl;
+		}
 
 		break;
 
 	default:
 		break;
 	}
+
+		//body->SetLinearVelocity(b2Vec2(1, 0));
+	//	b2Vec2 vel = body->GetLinearVelocity();
+		std::cout << "body LinearVelocity x: " << body->GetLinearVelocity().x;
+		std::cout << "body LinearVelocity y: " << body->GetLinearVelocity().y << std::endl;
+
+
+
 
 //	printf("%4.2f %4.2f %4.2f\n", position.x, position.y, angle);
 
@@ -313,6 +339,7 @@ void Scene::Box2DUpdate(unsigned char *keyState, unsigned int *ArrowKeyState, un
 	
 //	printf("%4.2f %4.2f %4.2f\n", position.x, position.y, angle);
 
+	world.DrawDebugData();
 	if (startPHYX)
 	{
 		world.Step(timeStep, velocityIterations, positionIterations);
@@ -365,19 +392,19 @@ void Scene::update(unsigned char *keyState, unsigned int *ArrowKeyState, unsigne
 
 	for (size_t i = 0; i < 2; i++)
 	{
-		starScrollPointBack[i] += 0.015f;
-		if (starScrollPointBack[i] > 10.0f)
+		starScrollPointBack[i] += 0.005f;
+		if (starScrollPointBack[i] > 15.0f)
 		{
-			starScrollPointBack[i] = -10.0f;
+			starScrollPointBack[i] = -5.0f;
 		}
 	}
 
 	for (size_t i = 0; i < 2; i++)
 	{
-		starScrollPointBack2[i] += 0.025f;
-		if (starScrollPointBack2[i] > 10.0f)
+		starScrollPointBack2[i] += 0.015f;
+		if (starScrollPointBack2[i] > 15.0f)
 		{
-			starScrollPointBack2[i] = -10.0f;
+			starScrollPointBack2[i] = -5.0f;
 		}
 	}
 
