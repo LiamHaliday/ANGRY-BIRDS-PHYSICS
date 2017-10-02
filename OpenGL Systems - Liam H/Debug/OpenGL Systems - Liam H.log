@@ -1,2 +1,78 @@
-﻿  OpenGL Systems - Liam H.vcxproj -> C:\Users\Jayden\Documents\GitHub\ANGRY-BIRDS-PHYSICS\Debug\OpenGL Systems - Liam H.exe
-  OpenGL Systems - Liam H.vcxproj -> C:\Users\Jayden\Documents\GitHub\ANGRY-BIRDS-PHYSICS\Debug\OpenGL Systems - Liam H.pdb (Partial PDB)
+﻿  Text.cpp
+  ShaderLoader.cpp
+  Scene.cpp
+h:\github\angry-birds-physics\opengl systems - liam h\scene.h(127): warning C4305: 'initializing' : truncation from 'double' to 'float'
+h:\github\angry-birds-physics\opengl systems - liam h\scene.cpp(101): warning C4244: 'initializing' : conversion from 'int' to 'float', possible loss of data
+h:\github\angry-birds-physics\opengl systems - liam h\scene.cpp(102): warning C4244: 'initializing' : conversion from 'int' to 'float', possible loss of data
+h:\github\angry-birds-physics\opengl systems - liam h\scene.cpp(158): warning C4305: '=' : truncation from 'double' to 'float'
+h:\github\angry-birds-physics\opengl systems - liam h\scene.cpp(257): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+h:\github\angry-birds-physics\opengl systems - liam h\scene.cpp(329): warning C4244: 'initializing' : conversion from 'int' to 'GLfloat', possible loss of data
+h:\github\angry-birds-physics\opengl systems - liam h\scene.cpp(333): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+h:\github\angry-birds-physics\opengl systems - liam h\scene.cpp(340): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+  object.cpp
+  main.cpp
+h:\github\angry-birds-physics\opengl systems - liam h\scene.h(127): warning C4305: 'initializing' : truncation from 'double' to 'float'
+h:\github\angry-birds-physics\opengl systems - liam h\main.cpp(87): warning C4244: '=' : conversion from 'int' to 'GLfloat', possible loss of data
+h:\github\angry-birds-physics\opengl systems - liam h\main.cpp(88): warning C4244: '=' : conversion from 'int' to 'GLfloat', possible loss of data
+h:\github\angry-birds-physics\opengl systems - liam h\main.cpp(94): warning C4244: '=' : conversion from 'int' to 'GLfloat', possible loss of data
+h:\github\angry-birds-physics\opengl systems - liam h\main.cpp(95): warning C4244: '=' : conversion from 'int' to 'GLfloat', possible loss of data
+  camera.cpp
+h:\github\angry-birds-physics\opengl systems - liam h\camera.cpp(12): warning C4244: 'initializing' : conversion from 'int' to 'GLfloat', possible loss of data
+  b2Rope.cpp
+  b2WheelJoint.cpp
+  b2WeldJoint.cpp
+  b2RopeJoint.cpp
+  b2RevoluteJoint.cpp
+  b2PulleyJoint.cpp
+  b2PrismaticJoint.cpp
+  b2MouseJoint.cpp
+  b2MotorJoint.cpp
+  b2Joint.cpp
+  b2GearJoint.cpp
+  b2FrictionJoint.cpp
+  b2DistanceJoint.cpp
+  b2PolygonContact.cpp
+  Generating Code...
+  Compiling...
+  b2PolygonAndCircleContact.cpp
+  b2EdgeAndPolygonContact.cpp
+  b2EdgeAndCircleContact.cpp
+  b2ContactSolver.cpp
+  b2Contact.cpp
+  b2CircleContact.cpp
+  b2ChainAndPolygonContact.cpp
+  b2ChainAndCircleContact.cpp
+  b2WorldCallbacks.cpp
+  b2World.cpp
+  b2Island.cpp
+  b2Fixture.cpp
+  b2ContactManager.cpp
+  b2Body.cpp
+  b2Timer.cpp
+  b2StackAllocator.cpp
+  b2Settings.cpp
+  b2Math.cpp
+  b2Draw.cpp
+  b2BlockAllocator.cpp
+  Generating Code...
+  Compiling...
+  b2PolygonShape.cpp
+  b2EdgeShape.cpp
+  b2CircleShape.cpp
+  b2ChainShape.cpp
+  b2TimeOfImpact.cpp
+  b2DynamicTree.cpp
+  b2Distance.cpp
+  b2Collision.cpp
+  b2CollidePolygon.cpp
+  b2CollideEdge.cpp
+  b2CollideCircle.cpp
+  b2BroadPhase.cpp
+  Generating Code...
+  SOIL.lib(SOIL.obj) : MSIL .netmodule or module compiled with /GL found; restarting link with /LTCG; add /LTCG to the link command line to improve linker performance
+LINK : warning LNK4075: ignoring '/INCREMENTAL' due to '/LTCG' specification
+b2BroadPhase.obj : warning LNK4075: ignoring '/EDITANDCONTINUE' due to '/OPT:ICF' specification
+LINK : warning LNK4098: defaultlib 'MSVCRT' conflicts with use of other libs; use /NODEFAULTLIB:library
+  Generating code
+  Finished generating code
+  OpenGL Systems - Liam H.vcxproj -> H:\GITHUB\ANGRY-BIRDS-PHYSICS\Debug\OpenGL Systems - Liam H.exe
