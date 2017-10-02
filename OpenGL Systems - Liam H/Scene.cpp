@@ -221,7 +221,7 @@ void Scene::Box2DInit(int argc, char** argv)
 
 	body = world.CreateBody(&bodyDef);
 
-	
+
 	dynamicCircle.m_radius = 0.25f;
 	fixtureDef.shape = &dynamicCircle;
 
@@ -258,8 +258,23 @@ void Scene::Box2DInit(int argc, char** argv)
 	camLoc.z = camLoc.z - 2.5;
 	//camLook.z = camLook.z + 2.5;
 
-	fireState = STARTING;
 
+	// Joint
+	
+	b2DistanceJointDef djd;
+
+	djd.bodyA = box[2];
+	djd.bodyB = box[3];
+
+	djd.length = 3.0f;// = box[3]
+	djd.frequencyHz = 3;
+	djd.dampingRatio = 0.1;
+
+//	b2DistanceJoint dj = (b2DistanceJoint) world.CreateJoint(&djd);             fix plz
+//	http://www.emanueleferonato.com/2015/09/08/html5-physics-sling-with-predictive-trajectory-like-trick-shot-ios-game-using-phaser-box2d/
+//	https://www.youtube.com/watch?v=4LYvltd07hk
+
+	fireState = STARTING;
 }
 
 
