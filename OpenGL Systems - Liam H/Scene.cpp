@@ -415,8 +415,7 @@ void Scene::update(unsigned char *keyState, unsigned int *ArrowKeyState, unsigne
 	
 }
 
-
-
+#pragma region objectstuff
 void Scene::Setsquare()
 {
 	// square ver and ind
@@ -561,3 +560,4 @@ void Scene::Setenemy()
 
 }
 
+#pragma endregion 
