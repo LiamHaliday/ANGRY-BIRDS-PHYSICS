@@ -62,10 +62,10 @@ public:
 	float adjacent;
 	float opposite;
 
-	void init(int argc, char** argv);
+	void init();
 	void render();
 
-	void Box2DInit(int argc, char ** argv);
+	void Box2DInit();
 	void Box2DUpdate(unsigned char *keyState, unsigned int *ArrowKeyState, unsigned char *mouseState, GLfloat lastX, GLfloat lastY);
 
 	void SetStarFloor();
@@ -78,44 +78,45 @@ public:
 
 	camera mainCam;
 
-	// Define the ground body.
+	
 	b2BodyDef groundBodyDef;
-
-	// Call the body factory which allocates memory for the ground body
-	// from a pool and creates the ground box shape (also from a pool).
-	// The body is also added to the world.
 	b2Body* groundBody;
-
-	// Define the ground box shape.
 	b2PolygonShape groundBox;
 
 
-	// Define the dynamic body. We set its position and call the body factory.
 	b2BodyDef bodyDef;
-
 	b2Body* body;
 
 	b2BodyDef boxDef;
 	b2Body* box[6];
 
-	// Define another box shape for our dynamic body.
-	b2PolygonShape dynamicBox;
-	b2CircleShape dynamicCircle;
+	b2BodyDef mouseBodyDef;
+	b2Body *mouseBody;
 
-	// Define the dynamic body fixture.
+	//windmill
+
+	b2BodyDef windmillDef;
+	b2Body* windBlade;
+	b2Body* windStand;
+
+	b2Body *slingPoint;
+	b2DistanceJointDef sJ;
+	b2Joint *StringJoint;
+
+	b2DistanceJointDef djd;
+	b2Joint *jj;
+
 	b2FixtureDef fixtureDef;
 	b2FixtureDef fixtureDefBOX;
+	b2FixtureDef fixtureDefMill;
 
-	// Prepare for simulation. Typically we use a time step of 1/60 of a
-	// second (60Hz) and 10 iterations. This provides a high quality simulation
-	// in most game scenarios.
 	float32 timeStep = 1.0f / 60.0f;
 	int32 velocityIterations = 6;
 	int32 positionIterations = 2;
 
-	// Joint
+	// Mouse Joint
+	b2Vec2 inGameMouse;
 
-	
 
 private:
 
@@ -143,6 +144,13 @@ private:
 	objectStruct player;
 	objectStruct Ground;
 	objectStruct mainMenuObject;
+	objectStruct mouse;
+	objectStruct stingStick;
+
+
+	objectStruct windmillBlade;
+	objectStruct windmillStand;
+
 
 	std::vector<objectStruct> starFloor;
 

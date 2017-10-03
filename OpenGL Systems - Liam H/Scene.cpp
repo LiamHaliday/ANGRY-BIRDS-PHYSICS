@@ -33,7 +33,7 @@ b2Vec2 gravity(0.0f, -10.0f);
 b2World world(gravity);
 
 
-void Scene::init(int argc, char** argv)
+void Scene::init()
 {
 
 	//star Scroll Point array (place where the fucking stars are bitch)
@@ -98,15 +98,7 @@ void Scene::init(int argc, char** argv)
 	// pink
 	for (int i = 0; i < 6; i++)
 	{
-		float RandX = rand() % 800;
-		float RandY = rand() % 1000;
-		RandX = (RandX / 100) - 4;
-		RandY = (-(RandY / 100) - 2);
-
 		objectStruct* enemy = new objectStruct();
-		enemy->direction = 0;
-		enemy->xCoord = RandX;
-		enemy->yCoord = RandY;
 		pinkEnemys.push_back(*enemy);
 		delete enemy;
 		pinkEnemys[pinkEnemys.size() - 1].object.setImage("Assets/images/BOX.png");
@@ -122,10 +114,114 @@ void Scene::init(int argc, char** argv)
 	camLoc.x = 0.0f;
 	camLoc.z = 0.0f;//-2.5f;
 
-	Box2DInit(argc, argv);
+
+
+	GLfloat vertices[] = {
+		//		//position				//color				//texture coord
+		// Fill in the top face vertex data.
+		-0.05f, 0.0f, -0.05f, 1.0f, 1.0f, 1.0f, 0.0f, 1.0f,
+		-0.05f, 0.0f, 0.05f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f,
+		0.05f, 0.0f, 0.05f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f,
+		0.05f, 0.0f, -0.05f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f,
+
+	};
+
+	GLuint indices[] = {
+		// front
+		0, 1, 2,
+		0, 2, 3,
+
+	};
+
+	GLfloat * playerVert = vertices;
+	GLuint * playerInd = indices;
+
+	mouse.object.setImage("Assets/images/jumper.png");
+	mouse.object.createObj(playerVert, sizeof(vertices), playerInd, sizeof(indices));
+
+	// stick object
+
+	GLfloat verticesstingStick[] = {
+		//		//position				//color				//texture coord
+		// Fill in the top face vertex data.
+		-0.5f, 0.0f, -2.0f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f,
+		-0.5f, 0.0f, 2.0f, 1.0f, 1.0f, 1.0f, 0.0f, 1.0f,
+		0.5f, 0.0f, 2.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f,
+		0.5f, 0.0f, -2.0f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f,
+
+	};
+
+	GLuint indicesstingStick[] = {
+		// front
+		0, 1, 2,
+		0, 2, 3,
+	};
+
+	GLfloat * playerVertstick = verticesstingStick;
+	GLuint * playerIndstick = indicesstingStick;
+
+	stingStick.object.setImage("Assets/images/sling.png");
+	stingStick.object.createObj(playerVertstick, sizeof(verticesstingStick), playerIndstick, sizeof(indicesstingStick));
+
+
+
+	// windmill
+
+	GLfloat verticesstingBlade[] = {
+		//		//position				//color				//texture coord
+		// Fill in the top face vertex data.
+		-0.5f, 0.0f, -2.0f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f,
+		-0.5f, 0.0f, 2.0f, 1.0f, 1.0f, 1.0f, 0.0f, 1.0f,
+		0.5f, 0.0f, 2.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f,
+		0.5f, 0.0f, -2.0f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f,
+
+	};
+
+	GLuint indicesstingBlade[] = {
+		// front
+		0, 1, 2,
+		0, 2, 3,
+	};
+
+	GLfloat * playerVertBlade = verticesstingBlade;
+	GLuint * playerIndBlade = indicesstingBlade;
+
+	windmillBlade.object.setImage("Assets/images/BOX.png");
+	windmillBlade.object.createObj(verticesstingBlade, sizeof(playerVertBlade), indicesstingBlade, sizeof(playerIndBlade));
+
+	//  --------------- stand --------------- --------------- stand --------------- --------------- stand ---------------
+
+	GLfloat verticesstingStand[] = {
+		//		//position				//color				//texture coord
+		// Fill in the top face vertex data.
+		-0.25f, 0.0f, -1.0f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f,
+		-0.25f, 0.0f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f, 1.0f,
+		0.25f, 0.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f,
+		0.25f, 0.0f, -1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f,
+
+	};
+
+	GLuint indicesstingStand[] = {
+		// front
+		0, 1, 2,
+		0, 2, 3,
+	};
+
+	GLfloat * playerVertStand = verticesstingStand;
+	GLuint * playerIndStand = indicesstingStand;
+
+	windmillStand.object.setImage("Assets/images/BOX.png");
+	windmillStand.object.createObj(playerVertStand, sizeof(verticesstingStand), playerIndStand, sizeof(indicesstingStand));
+
+	
+
+	Box2DInit();
 
 
 }
+
+
+
 
 void Scene::render()
 {
@@ -175,21 +271,35 @@ void Scene::render()
 		pinkEnemys[i].object.render(position.x, player.zCoord, position.y, angle, mainCam);
 	}
 
+	position = slingPoint->GetPosition();
+	angle = slingPoint->GetAngle();
+
+	stingStick.object.render(position.x, 0.0001, position.y, 0.0f, mainCam);
+
+	
 	position = body->GetPosition();
 	angle = body->GetAngle();
-
 
 //	printf("%4.2f %4.2f %4.2f\n", position.x, position.y, angle);
 	std::cout << "playerX: " << position.x << ", playerY: " << position.y << ", angle: " << (angle * 180) / 3.14 << std::endl;
 
-	//, holdingY - currentMouseY	
-
-
 	player.object.render(position.x , player.zCoord, position.y , angle, mainCam);
 
+	position = mouseBody->GetPosition();
+	angle = mouseBody->GetAngle();
+
+	mouse.object.render(position.x, player.zCoord, position.y, 0.0f, mainCam);
 
 	//-----------------------------BOX2D-----------------------------BOX2D-----------------------------BOX2D
 
+
+	position = windBlade->GetPosition();
+	angle = windBlade->GetAngle();
+	windmillBlade.object.render(position.x, 0.0002, position.y, 0.0f, mainCam);
+
+	position = windStand->GetPosition();
+	angle = windStand->GetAngle();
+	windmillStand.object.render(position.x, 0.0001, position.y, 0.0f, mainCam);
 
 	glDisable(GL_BLEND);
 
@@ -199,10 +309,10 @@ void Scene::render()
 }
 
 
-void Scene::Box2DInit(int argc, char** argv)
+void Scene::Box2DInit()
 {
-	B2_NOT_USED(argc);
-	B2_NOT_USED(argv);
+	//B2_NOT_USED(argc);
+//	B2_NOT_USED(argv);
 
 
 	groundBodyDef.position.Set(0.0f, -0.0f);
@@ -221,6 +331,7 @@ void Scene::Box2DInit(int argc, char** argv)
 
 	body = world.CreateBody(&bodyDef);
 
+	b2CircleShape dynamicCircle;
 
 	dynamicCircle.m_radius = 0.25f;
 	fixtureDef.shape = &dynamicCircle;
@@ -233,6 +344,9 @@ void Scene::Box2DInit(int argc, char** argv)
 	body->CreateFixture(&fixtureDef);
 
 	//BOXES
+	// Define another box shape for our dynamic body.
+	b2PolygonShape dynamicBox;
+
 	dynamicBox.SetAsBox(0.250f, 0.250f);
 	boxDef.type = b2_dynamicBody;
 
@@ -256,28 +370,56 @@ void Scene::Box2DInit(int argc, char** argv)
 	}
 
 	camLoc.z = camLoc.z - 2.5;
-	//camLook.z = camLook.z + 2.5;
 
-
-	// Joint
 	
-	b2DistanceJointDef djd;
+	mouseBodyDef.type = b2_staticBody;
+	mouseBodyDef.position.Set(inGameMouse.x, inGameMouse.y);
+	mouseBody = world.CreateBody(&mouseBodyDef);
 
-	djd.bodyA = box[2];
-	djd.bodyB = box[3];
+	mouseBodyDef.position.Set(-2.5f, 2.5f);
+	slingPoint = world.CreateBody(&mouseBodyDef);
 
-	djd.length = 3.0f;// = box[3]
-	djd.frequencyHz = 3;
-	djd.dampingRatio = 0.1;
+	sJ.bodyA = body;
+	sJ.bodyB = slingPoint;
 
-//	b2DistanceJoint dj = (b2DistanceJoint) world.CreateJoint(&djd);             fix plz
-//	http://www.emanueleferonato.com/2015/09/08/html5-physics-sling-with-predictive-trajectory-like-trick-shot-ios-game-using-phaser-box2d/
-//	https://www.youtube.com/watch?v=4LYvltd07hk
+	sJ.length = 0.5f;
+	sJ.frequencyHz = 2.5f;
+	sJ.dampingRatio = 0.0;
 
-	fireState = STARTING;
+	StringJoint = world.CreateJoint(&sJ);
+
+	fireState = STARTING;	
+
+	// windmill
+
+	windmillDef.type = b2_dynamicBody; // was b2_dynamicBody
+	windmillDef.position.Set(-3.0f, 2.5f);
+
+	b2PolygonShape millShape;
+	millShape.SetAsBox(1.0, 0.25);
+
+	fixtureDefMill.shape = &millShape;
+	fixtureDefMill.friction = 0.3f;
+	fixtureDefMill.density = 2.0f;
+
+	windBlade = world.CreateBody(&windmillDef);
+	windBlade->CreateFixture(&fixtureDefMill);
+
+
+	windmillDef.position.Set(-3.0f, 2.0f);
+
+	windStand = world.CreateBody(&windmillDef);
+	windStand->CreateFixture(&fixtureDefMill);
+
+
+//	b2RevoluteJointDef rjd;
+	
+	//rjd.Initialize(windBlade, windStand, b2Vec2(0,0));
+
 }
 
 
+bool stringOn = true;
 
 
 void Scene::Box2DUpdate(unsigned char *keyState, unsigned int *ArrowKeyState, unsigned char *mouseState, GLfloat lastX, GLfloat lastY)
@@ -286,55 +428,151 @@ void Scene::Box2DUpdate(unsigned char *keyState, unsigned int *ArrowKeyState, un
 	currentMouseX = lastX;
 	currentMouseY = lastY;
 
+	inGameMouse.x = (lastX / 100);
+	inGameMouse.y = (lastY / 100);
+
+	inGameMouse.x -= 5;
+	inGameMouse.y -= 7.5;
+
+	inGameMouse.y = -inGameMouse.y;
+	//
+	//inGameMouse.x = inGameMouse.x * 0.5;// (inGameMouse.x * 0.5);
+	//inGameMouse.y = inGameMouse.y * 0.5;// (inGameMouse.y * 0.5)
+
+		//if (inGameMouse.x > 5) { }
+	//else if (inGameMouse.y > 5) {  }
+
+
+	std::cout << "lastX: " << lastX << " lastY" << lastY << std::endl;
+	std::cout << "in GameMouse X: " << inGameMouse.x << " in GameMouse Y:" << inGameMouse.y << std::endl;
+
+	mouseBody->SetTransform(b2Vec2(inGameMouse.x, inGameMouse.y ), 0);
+
 	// Now print the position and angle of the body.
 	b2Vec2 position = body->GetPosition();
 	float32 angle = body->GetAngle();
 
 	if (mouseState[MOUSE_RIGHT])
 	{
-		fireState = STARTING;
+		//fireState = STARTING;	
+
+		if (!stringOn)
+		{
+			body->SetTransform(b2Vec2(-3.0f, 1.5f), 0);
+			
+			sJ.bodyA = body;
+			sJ.bodyB = slingPoint;
+			
+			sJ.length = 0.5f;
+			sJ.frequencyHz = 2.5f;
+			sJ.dampingRatio = 0.0;
+			
+			StringJoint = world.CreateJoint(&sJ);
+
+			stringOn = true;
+		}
 	}
+
+	if (keyState[(unsigned char)'R'] == BUTTON_DOWN || keyState[(unsigned char)'r'] == BUTTON_DOWN)
+	{
+		if (stringOn)
+		{
+			world.DestroyJoint(StringJoint);
+		}
+
+		body->SetTransform(b2Vec2(-3.0f, 1.5f), 0);
+
+		sJ.bodyA = body;
+		sJ.bodyB = slingPoint;
+
+		sJ.length = 0.5f;
+		sJ.frequencyHz = 2.5f;
+		sJ.dampingRatio = 0.0;
+
+		StringJoint = world.CreateJoint(&sJ);
+
+		stringOn = true;
+
+		for (size_t i = 0; i < 6; i++)
+		{
+			box[i]->SetAngularVelocity(0.0f);
+			box[i]->SetLinearVelocity(b2Vec2(0.0f, 0.0f));
+
+
+			if (i >= 3)
+			{
+				box[i]->SetTransform(b2Vec2(3.0f, 1.25f + ((i - 3) * 0.5f)), 0);
+			}
+			else
+			{
+				box[i]->SetTransform(b2Vec2(1.75f, 1.25f + (i * 0.5f)), 0);
+			}
+		}
+	}
+
 
 	switch (fireState)
 	{
 	case STARTING:
+	{
+		if (stringOn)
+		{
+			if (mouseState[MOUSE_LEFT]) {
 
-		if (mouseState[MOUSE_LEFT]) { fireState = HOLDING;	holdingX = lastX; holdingY = lastY;}
-	
+				djd.bodyA = body;
+				djd.bodyB = mouseBody;
+
+				djd.length = 0.0f;
+				djd.frequencyHz = 0.0f;
+				djd.dampingRatio = 0.0;
+
+				jj = world.CreateJoint(&djd);
+				fireState = HOLDING;
+				//holdingX = lastX; holdingY = lastY;
+			}
+		}
+		// Joint
+
+
 
 		break;
-
+	}
 	case HOLDING:
+	{
+		if (!mouseState[MOUSE_LEFT]) { fireState = FIRE; world.DestroyJoint(jj); }
 
-		if (!mouseState[MOUSE_LEFT]) { fireState = FIRE; }
 
-	
-	//	body->ApplyForce(b2Vec2(0, 4), body->GetWorldCenter(), 0);
+		//body->ApplyForce(b2Vec2(0, 4), body->GetWorldCenter(), 0);
 
 
 		break;
-
+	}
 	case FIRE:
-		 
-		body->ApplyForce(b2Vec2( -((lastX - holdingX) / 2), ((lastY - holdingY) / 2)), body->GetWorldCenter(), 0);
-		startPHYX = true;	
-
+	{
+		//body->ApplyForce(b2Vec2(-((lastX - holdingX) / 2), ((lastY - holdingY) / 2)), body->GetWorldCenter(), 0);
+		//startPHYX = true;
 		//body->SetTransform(b2Vec2(position.x, position.y + 0.1f), 0);
-	
-		fireState = MOVING;
+
+		if (stringOn)
+		{
+			world.DestroyJoint(StringJoint);
+			stringOn = false;
+		}
+
+		fireState = STARTING;
 
 		break;
-		
+	}
 	case MOVING:
-
-		if (body->GetLinearVelocity().x >= 0.1 || body->GetLinearVelocity().x <= -0.1 && 
+	{
+		if (body->GetLinearVelocity().x >= 0.1 || body->GetLinearVelocity().x <= -0.1 &&
 			body->GetLinearVelocity().y >= 0.1 || body->GetLinearVelocity().y <= -0.1)
-		{ 
-			 std::cout << "MOVING" << std::endl;
+		{
+			std::cout << "MOVING" << std::endl;
 		}
 
 		break;
-
+	}
 	default:
 		break;
 	}
@@ -355,7 +593,7 @@ void Scene::Box2DUpdate(unsigned char *keyState, unsigned int *ArrowKeyState, un
 //	printf("%4.2f %4.2f %4.2f\n", position.x, position.y, angle);
 
 	world.DrawDebugData();
-	if (startPHYX)
+//	if (startPHYX)
 	{
 		world.Step(timeStep, velocityIterations, positionIterations);
 	}
@@ -437,10 +675,10 @@ void Scene::Setsquare()
 	GLfloat vertices[] = {
 //		//position				//color				//texture coord
 		// Fill in the top face vertex data.
-		-0.25f, 0.0f, -0.25f, 1.0f, 1.0f, 1.0f, 0.0f, 1.0f,
-		-0.25f, 0.0f, 0.25f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f,
-		0.25f, 0.0f, 0.25f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f,
-		0.25f, 0.0f, -0.25f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f,
+		-0.25f, 0.0f, -0.25f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f,
+		-0.25f, 0.0f, 0.25f, 1.0f, 1.0f, 1.0f, 0.0f, 1.0f,
+		0.25f, 0.0f, 0.25f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f,
+		0.25f, 0.0f, -0.25f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f,
 
 	};
 

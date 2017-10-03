@@ -113,10 +113,13 @@ void mousePassiveMove(int x, int y) {
 
 int sceneSwitch;
 
-Scene MainScene;
+Scene* MainScene = new Scene;
 
 bool mainMenu = true;
 bool gameInit = false;
+
+//int argcSet;
+//char* argvSet;
 
 /****************************************************/
 // Filename: main.cpp
@@ -125,8 +128,13 @@ bool gameInit = false;
 /****************************************************/
 void init(int argc, char** argv)
 {
+//	Example* example = new Example();
 
-		MainScene.init(argc, argv);
+
+//	glutFullScreen();
+
+	
+	MainScene->init();
 
 }
 
@@ -138,9 +146,7 @@ void init(int argc, char** argv)
 void render(void)
 {
 
-	MainScene.render();
-//		std::cout << "lastX: " << lastX << ",  " << "lastY: " << lastY << std::endl;
-//		std::cout << "yas: " << yaw << ",  " << "pitch: " << pitch << std::endl;
+	MainScene->render();
 
 
 }
@@ -156,29 +162,19 @@ bool fullscreenButton = true;
 void update() {
 	// update game information.
 	glutPostRedisplay();
-
+	glutSetCursor(GLUT_CURSOR_NONE);
 	
-	MainScene.update(keyState, ArrowKeyState, mouseState, lastX, lastY);
+	glutMouseFunc(mouse);
+	glutMotionFunc(mousePassiveMove);
+	glutPassiveMotionFunc(mousePassiveMove);
 
+
+	MainScene->update(keyState, ArrowKeyState, mouseState, lastX, lastY);
 
 	glutKeyboardFunc(keyboard);
 	glutKeyboardUpFunc(keyboard_up);
 
-	// check buttons
-	for (size_t i = 0; i < 255; i++)
-	{
-		if (keyState[i] == BUTTON_DOWN)
-		{
-			std::cout << (unsigned char)i;
-		}
-	}
-	for (size_t i = 0; i < 4; i++)
-	{
-		if (ArrowKeyState[i] == BUTTON_DOWN)
-		{
-			std::cout << i;
-		}
-	}
+	if (keyState[27] == BUTTON_DOWN) { exit(0); } //right 
 
 	std::cout << std::endl;
 
@@ -193,14 +189,13 @@ int main(int argc, char **argv)
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGBA);
 	glutInitWindowPosition(50, 5); glutInitWindowSize(1600, 1000);
-	glutCreateWindow("SUPER ULTRA SPACE FIGHTING GAME: EDITION X");
+	glutCreateWindow("ANGRY BIRDS");
 	glewInit();
 	init(argc, argv);
 	glutDisplayFunc(render);
 	glutIdleFunc(update);
 	//mouse parts
-	glutMouseFunc(mouse);
-	glutPassiveMotionFunc(mousePassiveMove);
+
 	glutMainLoop();
 	return 0;
 }

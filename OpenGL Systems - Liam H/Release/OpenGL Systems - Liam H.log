@@ -1,0 +1,13 @@
+﻿  Scene.cpp
+h:\github\angry-birds-physics\opengl systems - liam h\Scene.h(132): warning C4305: 'initializing' : truncation from 'double' to 'float'
+Scene.cpp(255): warning C4305: '=' : truncation from 'double' to 'float'
+Scene.cpp(277): warning C4305: 'argument' : truncation from 'double' to 'float'
+Scene.cpp(298): warning C4305: 'argument' : truncation from 'double' to 'float'
+Scene.cpp(302): warning C4305: 'argument' : truncation from 'double' to 'float'
+Scene.cpp(372): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+Scene.cpp(609): warning C4244: 'initializing' : conversion from 'int' to 'GLfloat', possible loss of data
+Scene.cpp(613): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+Scene.cpp(620): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+  Generating code
+  Finished generating code
+  OpenGL Systems - Liam H.vcxproj -> H:\GITHUB\ANGRY-BIRDS-PHYSICS\Release\OpenGL Systems - Liam H.exe
